@@ -1,6 +1,4 @@
-  app.c (app.h)
-   Endless loops, which execute tasks with fixed computing time. This 
-   sequential execution is only deviated from when an interrupt event occurs.
-   Cyclic Executive (Update by Time Code, period = 1mS)
-
-...
+El archivo app.c hace un include al main.h, al logger.h, dwt, board.h, y las tasks_a, b y c. Se definen las funciones app_update y app_init. Se usan para guardar variables adentro de una estructura task_cfg_t que guarda info de las 3 tareas. Luego hay una función llamada HAL_SYSTICK_Callback que aumenta el tick timer. 
+App_init repara todo antes de empezar: loguea, inicializa tareas, resetea contadores.
+app_update se llama periodicamente de algún loop del main y decide cuándo correr las tareas (según ticks del Systick), ejecuta todas las tareas en orden, mide su tiempo, y guarda estadísticas.
+El código contiene otras estructuras necesarias para hacer funcionar las otras estructuras. Algunas cosas con punteros que son superfluas a lo que realmente hace el código.
